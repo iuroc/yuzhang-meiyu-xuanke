@@ -20,6 +20,7 @@ $(document).ready(function () {
         if (target == 'home') {
             history.replaceState({}, null, './')
             document.title = '我的课程 - ' + Poncon.title
+            Poncon.load_course_list()
         } else if (target == 'login') {
             document.title = (hash[2] == 'register' ? '教师注册' : '教师登录') + ' - ' + Poncon.title
             $('.page-sub').css('display', 'none')
@@ -259,6 +260,7 @@ const Poncon = {
                 html += `<option value="${item.courseTypeId}">${item.courseType}</option>`
             })
             $('.page-add ._jhsghd').html(html)
+            Poncon.load.add = true
         })
     },
     /**
@@ -305,5 +307,21 @@ const Poncon = {
         Page.find('input').val('')
         delete this.data.add.image_url
         $('._jhsgdfhsghf').removeAttr('src').hide()
+    },
+    /**
+     * 加载课程列表
+     */
+    load_course_list() {
+        $.post('api/get_course_list.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password')
+        }, function (data) {
+            if (data.code == 200) {
+                console.log(data)
+                return
+            }
+            alert(data.msg)
+        })
     }
+
 }
