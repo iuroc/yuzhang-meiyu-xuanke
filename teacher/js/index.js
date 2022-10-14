@@ -20,7 +20,9 @@ $(document).ready(function () {
         if (target == 'home') {
             history.replaceState({}, null, './')
             document.title = '我的课程 - ' + Poncon.title
-            Poncon.load_course_list()
+            if (!Poncon.load.home) {
+                Poncon.load_course_list()
+            }
         } else if (target == 'login') {
             document.title = (hash[2] == 'register' ? '教师注册' : '教师登录') + ' - ' + Poncon.title
             $('.page-sub').css('display', 'none')
@@ -188,7 +190,8 @@ const Poncon = {
         var This = this
         $.post('api/register.php', {
             username: username,
-            password: md5(password)
+            password: md5(password),
+            name: name
         }, function (data) {
             if (data.code == 200) {
                 alert('注册成功，即将自动登录')
@@ -293,6 +296,7 @@ const Poncon = {
         $.post('api/add_course.php', data, function (data) {
             alert(data.msg)
             if (data.code == 200) {
+                Poncon.load.home = false
                 location.hash = ''
                 This.click_clean()
                 return
@@ -312,12 +316,36 @@ const Poncon = {
      * 加载课程列表
      */
     load_course_list() {
+        var Page = $('.page-home')
         $.post('api/get_course_list.php', {
             username: this.getStorage('username'),
             password: this.getStorage('password')
         }, function (data) {
             if (data.code == 200) {
-                console.log(data)
+                var html = ''
+                data.data.forEach(item => {
+                    html += `<div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="card _uausua mb-3">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <img src="${item.image}" class="card-img-top embed-responsive-item">
+                                        <div class="_asasahbg mb-3">
+                                            <button class="btn mr-2 shadow btn-info btn-sm">查看数据</button>
+                                            <button class="btn mr-3 shadow btn-primary btn-sm">编辑课程</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${item.course_name}</h5>
+                                        <div class="row small mb-2">
+                                            <div class="col pr-0">主讲：${item.teacher_name}</div>
+                                            <div class="col">报名：${item.has_num} / ${item.limit_num == 0 ? '不限' : item.limit_num}</div >
+                                        </div >
+    <div class="time small">开课时间：${item.start_time}</div>
+                                    </div >
+                                </div >
+                            </div > `
+                })
+                Page.find('.list_9asia').html(html)
+                Poncon.load.home = true
                 return
             }
             alert(data.msg)

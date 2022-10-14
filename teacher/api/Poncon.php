@@ -173,16 +173,17 @@ class Poncon
         $table = $config['table']['course'];
         $sql = "CREATE TABLE IF NOT EXISTS `$table` (
             `id` INT(11) NOT NULL AUTO_INCREMENT,
-            `course_id` VARCHAR(11) NOT NULL,
-            `course_name` VARCHAR(50),
-            `course_type` VARCHAR(50),
-            `start_time` TIMESTAMP,
-            `course_place` VARCHAR(50),
-            `limit_num` INT(11),
-            `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 创建时间
-            `msg` TEXT,
-            `image` VARCHAR(200),
-            `username` VARCHAR(50),
+            `course_id` VARCHAR(11) NOT NULL, -- 课程ID
+            `course_name` VARCHAR(50), -- 课程名称
+            `course_type` VARCHAR(50), -- 课程分类
+            `start_time` TIMESTAMP, -- 上课时间
+            `course_place` VARCHAR(50), -- 上课地点
+            `limit_num` INT(11), -- 限定报名任数
+            `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 记录创建时间
+            `msg` TEXT, -- 课程介绍
+            `image` VARCHAR(200), -- 课程封面
+            `username` VARCHAR(50), -- 教师用户名
+            `has_num` INT(11) DEFAULT 0, -- 已经报名的数量
             PRIMARY KEY (`id`) -- 主键
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         $result = mysqli_query($conn, $sql);

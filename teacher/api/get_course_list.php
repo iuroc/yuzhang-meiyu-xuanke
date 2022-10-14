@@ -17,7 +17,8 @@ $poncon->login($conn, $username, $password);
 
 $config = $poncon->getConfig();
 $table = $config['table']['course'];
-$sql = "SELECT * FROM `$table` WHERE `username` = '$username'";
+$table_user = $config['table']['user'];
+$sql = "SELECT *, (SELECT `name` FROM `$table_user` WHERE `username` = '$username') AS `teacher_name` FROM `$table` WHERE `username` = '$username'";
 $result = mysqli_query($conn, $sql);
 if (!$result) {
     $poncon->error(903, '数据库出错');
