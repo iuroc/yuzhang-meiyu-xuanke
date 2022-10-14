@@ -30,7 +30,7 @@ class Poncon
      */
     function POST($key, ...$args)
     {
-        $temp = isset($_POST[$key]) ? $_POST[$key] : (isset($args[0]) ? $args[0] : null);
+        $temp = isset($_POST[$key]) && $_POST[$key] != '' ? $_POST[$key] : (isset($args[0]) ? $args[0] : null);
         return isset($args[1]) && $args[1] ? addslashes($temp) : $temp;
     }
     /**
@@ -42,7 +42,7 @@ class Poncon
      */
     function GET($key, ...$args)
     {
-        $temp = isset($_GET[$key]) ? $_GET[$key] : (isset($args[0]) ? $args[0] : null);
+        $temp = isset($_GET[$key]) && $_GET[$key] != '' ? $_GET[$key] : (isset($args[0]) ? $args[0] : null);
         return isset($args[1]) && $args[1] ? addslashes($temp) : $temp;
     }
 
@@ -162,6 +162,27 @@ class Poncon
             `username` VARCHAR(50) NOT NULL, -- 用户名
             `password` VARCHAR(50) NOT NULL, -- 密码 md5密文
             `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 注册时间
+            `name` VARCHAR(50), -- 教师姓名
+            PRIMARY KEY (`id`) -- 主键
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            $this->error(903, '数据库错误');
+        }
+        // 新建课程信息表
+        $table = $config['table']['course'];
+        $sql = "CREATE TABLE IF NOT EXISTS `$table` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `course_id` VARCHAR(11) NOT NULL,
+            `course_name` VARCHAR(50),
+            `course_type` VARCHAR(50),
+            `start_time` TIMESTAMP,
+            `course_place` VARCHAR(50),
+            `limit_num` INT(11),
+            `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 创建时间
+            `msg` TEXT,
+            `image` VARCHAR(200),
+            `username` VARCHAR(50),
             PRIMARY KEY (`id`) -- 主键
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         $result = mysqli_query($conn, $sql);

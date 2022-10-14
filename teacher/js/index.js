@@ -26,6 +26,9 @@ $(document).ready(function () {
             $('.page-sub-' + (hash[2] == 'register' ? 'register' : 'login') + '').css('display', 'block')
         } else if (target == 'add') {
             document.title = '新增课程 - ' + Poncon.title
+            if (!Poncon.load.add) {
+                Poncon.load_course_types()
+            }
         } else {
             location.hash = ''
         }
@@ -35,12 +38,19 @@ $(document).ready(function () {
         var hash = new URL(event.newURL).hash
         router(hash)
     })
+    $('.file_jhsgdh').change(function () {
+        var fileData = $(this).prop('files')
+        Poncon.upload(fileData[0])
+        $(this).val('')
+    })
 })
 
 const Poncon = {
     title: '教师端',
     storageKey: 'yzetmy_teacher', // 本地存储键名
-    data: {},
+    data: {
+        add: {}
+    },
     load: {}, // 页面初始化加载完成情况，pageName: true/false
     tempTitle: {}, // 用于必要时记录页面标题
     request: $.post('api/empty.php'),
@@ -155,6 +165,7 @@ const Poncon = {
     click_register() {
         var Page = $('.page-sub-register')
         var username = Page.find('.input-username').val()
+        var name = Page.find('.input-name').val()
         var password = Page.find('.input-password').val()
         var password_repeat = Page.find('.input-password-repeat').val()
         if (password != password_repeat) {
@@ -167,6 +178,10 @@ const Poncon = {
         }
         if (!password.match(/^\w{4,20}$/)) {
             alert('密码格式错误')
+            return
+        }
+        if (name.match(/^\s*$/)) {
+            alert('请输入姓名')
             return
         }
         var This = this
@@ -192,5 +207,89 @@ const Poncon = {
             localStorage[this.storageKey] = ''
             location.reload()
         }
+    },
+    /**
+     * 点击上传图片
+     */
+    click_upload() {
+        var Page = $('.page-add')
+        Page.find('input.file_jhsgdh').click()
+
+    },
+    /**
+     * 开始上传文件
+     */
+    upload(fileData) {
+        if (fileData.size > 1048576) {
+            alert('图片不能大于1MB，请压缩后上传')
+            return
+        }
+        var This = this
+        var formData = new FormData()
+        formData.append('file', fileData)
+        formData.append('name', fileData.name)
+        formData.append('puid', 19673665)
+        formData.append('_token', '7347af7b58c7297d1398035f530c4155')
+        $.ajax({
+            method: 'post',
+            url: '//pan-yz.chaoxing.com/upload/uploadfile',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            error: function (e) {
+                alert('出错：' + e.statusText)
+            },
+            success: function (data) {
+                var image_url = 'https://img.apee.top/i/' + data.data.residstr
+                This.data.add.image_url = image_url
+                $('._jhsgdfhsghf').attr('src', image_url).show()
+            }
+        })
+    },
+    /**
+     * 加载课程分类选项列表
+     */
+    load_course_types() {
+        $.get('api/course_types.json', function (data) {
+            Poncon.data.add.courseTypes = data
+            var html = ''
+            data.forEach(item => {
+                html += `<option value="${item.courseTypeId}">${item.courseType}</option>`
+            })
+            $('.page-add ._jhsghd').html(html)
+        })
+    },
+    /**
+     * 点击新增课程
+     */
+    click_addCourse() {
+        var Page = $('.page-add')
+        var courseName = Page.find('.input-courseName').val()
+        var courseType = Page.find('.input-courseType').val()
+        var startTime = Page.find('.input-startTime').val()
+        var coursePlace = Page.find('.input-coursePlace').val()
+        var limitNum = Page.find('.input-limitNum').val()
+        var msg = Page.find('.input-msg').val()
+        if (!courseName || !courseType || !startTime || !coursePlace || !this.data.add.image_url) {
+            alert('请将带星号的项目填写完整')
+            return
+        }
+        var data = {
+            courseName: courseName,
+            courseType: courseType,
+            startTime: startTime,
+            coursePlace: coursePlace,
+            limitNum: limitNum,
+            msg: msg,
+            image: this.data.add.image_url,
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
+        }
+        $.post('api/add_course.php', data, function (data) {
+            console.log(data)
+        })
+
     }
 }

@@ -14,5 +14,6 @@ $config = [
     ],
     'table' => [
         'user' => 'yzetmy_teacher_user', // 用户表
+        'course' => 'yzetmy_teacher_course' // 课程信息表
     ]
 ];

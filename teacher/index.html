@@ -14,8 +14,8 @@
     <script src="js/index.js"></script>
 </head>
 
-<body>
-    <div class="slide-left h-100 user-select-none">
+<body class="user-select-none">
+    <div class="slide-left h-100">
         <h4 class="text-center pt-4 pb-3 mb-0 sticky-top _asasas">教师端</h4>
         <div class="menu">
             <div class="py-3 px-4 mx-3 oyp-action tab-home" onclick="location.hash='/home'">
@@ -35,6 +35,9 @@
                 <img src="img/4.svg">
                 <div class="ml-2">教师登录</div>
             </div>
+        </div>
+        <div class="footer">
+            <a href="https://apee.top" target="_blank">鹏优创工作室</a>
         </div>
     </div>
     <div class="box-right h-100">
@@ -81,6 +84,12 @@
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
+                            <span class="input-group-text">姓名</span>
+                        </div>
+                        <input type="text" class="form-control input-name" placeholder="请输入教师姓名">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">密码</span>
                         </div>
                         <input type="password" autocomplete="new-password" class="form-control input-password"
@@ -110,55 +119,74 @@
             <div class="container py-3">
                 <div class="row">
                     <div class="col-xl-7 col-lg-6">
-                        <div class="embed-responsive border shadow-sm bg-light embed-responsive-16by9 mb-3">
+                        <div class="embed-responsive border rounded shadow-sm bg-light embed-responsive-16by9 mb-3">
                             <div class="embed-responsive-item">
-                                <div class="h-100 image_upload">
-                                    点击上传课程封面
+                                <div class="h-100 image_upload" onclick="Poncon.click_upload()">
+                                    <div>点击上传课程封面<span class="text-danger ml-1">*</span></div>
+                                    <div class="small">请上传16x9的横屏图片，不超过1MB</div>
+                                    <img class="_jhsgdfhsghf" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-none d-lg-block">
+                            <div class="row mb-3">
+                                <div class="col pr-0">
+                                    <button class="btn btn-primary btn-block"
+                                        onclick="Poncon.click_addCourse()">新增课程</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger btn-block">清空重填</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <input type="file" style="display: none;" class="file_jhsgdh">
                     <div class="col-xl-5 col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">课程名称</span>
+                                <span class="input-group-text">课程名称<span class="text-danger ml-1">*</span></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="例如：计算机编程设计">
+                            <input type="text" class="form-control input-courseName" placeholder="例如：计算机编程设计">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">课程分类</span>
+                                <span class="input-group-text">课程分类<span class="text-danger ml-1">*</span></span>
                             </div>
-                            <select class="custom-select">
-                                <option selected>请选择课程分类</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <select class="custom-select _jhsghd input-courseType"></select>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">上课时间</span>
+                                <span class="input-group-text">上课时间<span class="text-danger ml-1">*</span></span>
                             </div>
-                            <input type="datetime-local" class="form-control" placeholder="例如：计算机编程设计">
+                            <input type="datetime-local" class="form-control input-startTime" placeholder="例如：计算机编程设计">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">上课地点</span>
+                                <span class="input-group-text">上课地点<span class="text-danger ml-1">*</span></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="例如：抱石楼 xxx 室">
+                            <input type="text" class="form-control input-coursePlace" placeholder="例如：抱石楼 xxx 室">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">限定人数</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="留空则不限制">
+                            <input type="number" class="form-control input-limitNum" placeholder="留空则不限制">
                         </div>
-                        <div class="input-group">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">课程介绍<br>（备注）</span>
                             </div>
-                            <textarea class="form-control" rows="5" placeholder="这是一门神奇的课程 ..."></textarea>
+                            <textarea class="form-control input-msg" rows="5" placeholder="这是一门神奇的课程 ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div style="max-width: 500px;" class="d-lg-none">
+                    <div class="row">
+                        <div class="col pr-0">
+                            <button class="btn btn-primary btn-block" onclick="Poncon.click_addCourse()">新增课程</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger btn-block">清空重填</button>
                         </div>
                     </div>
                 </div>
