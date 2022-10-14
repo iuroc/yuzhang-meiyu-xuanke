@@ -44,3 +44,26 @@ body {
 .form_hagdha {
     max-width: 400px;
 }
+
+._ss223 {
+    background-color: white;
+}
+
+
+.image_upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 576px) {
+    .slide-left {
+        display: none;
+    }
+
+    .box-right {
+        width: 100%;
+    }
+}

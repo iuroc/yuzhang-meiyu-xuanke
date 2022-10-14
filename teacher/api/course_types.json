@@ -1,0 +1,58 @@
+[
+    {
+        "id": "3",
+        "courseType": "陶艺",
+        "courseTypeId": "taoyi",
+        "courseTypeIntroduction": "中国传统古老文化与现代艺术结合的艺术形式",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770652384415744",
+        "courseTypeEn": "Pottery Art"
+    },
+    {
+        "id": "4",
+        "courseType": "手工",
+        "courseTypeId": "shougong",
+        "courseTypeIntroduction": "非机器设备批量生产而是由人工制作生产",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770652736192512",
+        "courseTypeEn": "Manual"
+    },
+    {
+        "id": "5",
+        "courseType": "绘画",
+        "courseTypeId": "meishu",
+        "courseTypeIntroduction": "创作占有一定平面或空间，且具有可视性的艺术",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770656687771648",
+        "courseTypeEn": "Fine Arts"
+    },
+    {
+        "id": "8",
+        "courseType": "篆刻",
+        "courseTypeId": "zhuanke",
+        "courseTypeIntroduction": "篆刻艺术，是书法（主要是篆书）和镌刻（包括凿、铸）结合",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770653855178752",
+        "courseTypeEn": "Seal cutting"
+    },
+    {
+        "id": "16",
+        "courseType": "合唱",
+        "courseTypeId": "hechang",
+        "courseTypeIntroduction": "集体演唱多声部声乐作品的艺术门类",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770657056325632",
+        "courseTypeEn": "Chorus"
+    },
+    {
+        "id": "22",
+        "courseType": "乐器",
+        "courseTypeId": "xiaohao",
+        "courseTypeIntroduction": "又名小喇叭，是铜管乐器中的一种",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770654754189312",
+        "courseTypeEn": "Trumpet"
+    },
+    {
+        "id": "61",
+        "courseType": "书法",
+        "courseTypeId": "shufa",
+        "courseTypeIntroduction": "书法是一种文字美的艺术表现形式",
+        "courseTypeIconUrl": "https://img.apee.top/i/787770653306978304",
+        "courseTypeEn": "calligraphy"
+    }
+]
