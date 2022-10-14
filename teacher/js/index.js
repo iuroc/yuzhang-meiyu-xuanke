@@ -287,9 +287,23 @@ const Poncon = {
             username: this.getStorage('username'),
             password: this.getStorage('password'),
         }
+        var This = this
         $.post('api/add_course.php', data, function (data) {
-            console.log(data)
+            alert(data.msg)
+            if (data.code == 200) {
+                location.hash = ''
+                This.click_clean()
+                return
+            }
         })
-
+    },
+    /**
+     * 新增课程页面，点击清空表单
+     */
+    click_clean() {
+        var Page = $('.page-add')
+        Page.find('input').val('')
+        delete this.data.add.image_url
+        $('._jhsgdfhsghf').removeAttr('src').hide()
     }
 }
