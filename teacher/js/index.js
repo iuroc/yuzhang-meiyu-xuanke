@@ -28,9 +28,20 @@ $(document).ready(function () {
             $('.page-sub').css('display', 'none')
             $('.page-sub-' + (hash[2] == 'register' ? 'register' : 'login') + '').css('display', 'block')
         } else if (target == 'add') {
-            document.title = '新增课程 - ' + Poncon.title
             if (!Poncon.load.add) {
                 Poncon.load_course_types()
+            }
+            if (hash[2] == 'edit' && hash[3]) {
+                document.title = '编辑课程 - ' + Poncon.title
+                Poncon.edit_course(hash[3])
+                $('.page-add .add_sdfsdf').html('编辑课程')
+            } else {
+                document.title = '新增课程 - ' + Poncon.title
+                $('.page-add .add_sdfsdf').html('新增课程')
+                if (Poncon.data.add.edit) {
+                    Poncon.click_clean(true)
+                    Poncon.data.add.edit = false
+                }
             }
         } else {
             location.hash = ''
@@ -281,6 +292,11 @@ const Poncon = {
             alert('请将带星号的项目填写完整')
             return
         }
+        var now = new Date().getTime()
+        if (new Date(startTime).getTime() < now) {
+            alert('请输入正确的上课时间')
+            return
+        }
         var data = {
             courseName: courseName,
             courseType: courseType,
@@ -291,6 +307,7 @@ const Poncon = {
             image: this.data.add.image_url,
             username: this.getStorage('username'),
             password: this.getStorage('password'),
+            edit: Poncon.data.add.edit_course_id
         }
         var This = this
         $.post('api/add_course.php', data, function (data) {
@@ -298,7 +315,7 @@ const Poncon = {
             if (data.code == 200) {
                 Poncon.load.home = false
                 location.hash = ''
-                This.click_clean()
+                This.click_clean(true)
                 return
             }
         })
@@ -306,11 +323,13 @@ const Poncon = {
     /**
      * 新增课程页面，点击清空表单
      */
-    click_clean() {
-        var Page = $('.page-add')
-        Page.find('input').val('')
-        delete this.data.add.image_url
-        $('._jhsgdfhsghf').removeAttr('src').hide()
+    click_clean(boo) {
+        if (boo || confirm('确定要清空重填吗？')) {
+            var Page = $('.page-add')
+            Page.find('input').val('')
+            delete this.data.add.image_url
+            $('._jhsgdfhsghf').removeAttr('src').hide()
+        }
     },
     /**
      * 加载课程列表
@@ -329,8 +348,8 @@ const Poncon = {
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <img src="${item.image}" class="card-img-top embed-responsive-item">
                                         <div class="_asasahbg mb-3">
-                                            <button class="btn mr-2 shadow btn-info btn-sm">查看数据</button>
-                                            <button class="btn mr-3 shadow btn-primary btn-sm">编辑课程</button>
+                                            <button class="btn mr-2 shadow btn-info btn-sm" onclick="Poncon.view_course('${item.course_id}')">查看数据</button>
+                                            <button class="btn mr-3 shadow btn-primary btn-sm" onclick="location.hash='/add/edit/${item.course_id}'">编辑课程</button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -339,13 +358,62 @@ const Poncon = {
                                             <div class="col pr-0">主讲：${item.teacher_name}</div>
                                             <div class="col">报名：${item.has_num} / ${item.limit_num == 0 ? '不限' : item.limit_num}</div >
                                         </div >
-    <div class="time small">开课时间：${item.start_time}</div>
+    <div class="time small">开课时间：${Poncon.parse_date(item.start_time)}</div>
                                     </div >
                                 </div >
                             </div > `
                 })
                 Page.find('.list_9asia').html(html)
                 Poncon.load.home = true
+                return
+            }
+            alert(data.msg)
+        })
+    },
+    /**
+     * 转换时间为剩余时间
+     * @param {string} str 时间datatime
+     */
+    parse_date(str) {
+        var timestamp = new Date(str).getTime()
+        var now = new Date().getTime()
+        var num = timestamp - now
+        if (num < 24 * 3.6E6 && num > 0) {
+            var hour = Math.floor(num / 3.6E6)
+            num -= hour * 3.6E6
+            var min = Math.floor(num / 6E4)
+            num -= min * 6E4
+            var sec = Math.floor(num / 1000)
+            return `剩余 ${hour} 小时 ${min} 分钟`
+        } else if (num < 0) {
+            return '课程已结束'
+        } else {
+            return str
+        }
+    },
+    /**
+     * 编辑课程
+     * @param {string} course_id 课程ID
+     */
+    edit_course(course_id) {
+        var Page = $('.page-add')
+        var This = this
+        $.post('api/get_course_info.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
+            course_id: course_id
+        }, function (data) {
+            if (data.code == 200) {
+                Poncon.data.add.edit = true
+                Poncon.data.add.edit_course_id = course_id
+                Page.find('.input-courseName').val(data.data.course_name)
+                Page.find('.input-courseType').val(data.data.course_type)
+                Page.find('.input-startTime').val(data.data.start_time)
+                Page.find('.input-coursePlace').val(data.data.course_place)
+                Page.find('.input-limitNum').val(data.data.limit_num)
+                Page.find('.input-msg').val(data.data.msg)
+                $('._jhsgdfhsghf').attr('src', data.data.image).show()
+                This.data.add.image_url = data.data.image
                 return
             }
             alert(data.msg)

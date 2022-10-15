@@ -2,8 +2,9 @@
 
 /**
  * 
- * 获取课程列表
+ * 获取课程信息
  */
+
 require './Poncon.php';
 
 use Poncon\Poncon;
@@ -14,15 +15,13 @@ $conn = $poncon->initDb();
 $username = $poncon->POST('username', '', true);
 $password = $poncon->POST('password', '', true);
 $poncon->login($conn, $username, $password);
-
+$course_id = $poncon->POST('course_id', '', true);
 $config = $poncon->getConfig();
 $table = $config['table']['course'];
-$table_user = $config['table']['user'];
-$sql = "SELECT `image`, `course_name`, `has_num`, `limit_num`, `start_time`, `course_id`, (SELECT `name` FROM `$table_user` WHERE `username` = '$username') AS `teacher_name` FROM `$table` WHERE `username` = '$username' AND `start_time` > NOW() ORDER BY `start_time`;";
+$sql = "SELECT * FROM `$table` WHERE `username` = '$username' AND `course_id` = '$course_id'";
 $result = mysqli_query($conn, $sql);
 if (!$result) {
     $poncon->error(903, '数据库出错');
 }
-
-$data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$data = mysqli_fetch_assoc($result);
 $poncon->success('获取成功', $data);

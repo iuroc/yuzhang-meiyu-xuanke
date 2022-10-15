@@ -33,16 +33,26 @@ $coursePlace = $poncon->POST('coursePlace', '', true);
 $limitNum = $poncon->POST('limitNum', 0, true);
 $msg = $poncon->POST('msg', '', true);
 $image = $poncon->POST('image', 0, true);
+$edit = $poncon->POST('edit', 0, true);
 $course_id = $poncon->createId(11);
 if (!$courseName || !$courseType || !$startTime || !$coursePlace || !$image) {
     $poncon->error(900, '参数缺失');
 }
 $config = $poncon->getConfig();
 $table = $config['table']['course'];
-$sql = "INSERT INTO `$table` (`course_name`, `course_type`, `start_time`, `course_place`, `limit_num`, `msg`, `image`, `course_id`, `username`)
+if ($edit != '') {
+    $sql = "UPDATE `$table` SET `course_name` = '$courseName', `course_type` = '$courseType', `start_time` = '$startTime', `course_place` = '$coursePlace', `limit_num` = $limitNum, `msg` = '$msg', `image` = '$image' WHERE `course_id` = '$edit' AND `username` = '$username'";
+    $result = mysqli_query($conn, $sql);
+    if (!$result) {
+        $this->error(903, '数据库错误');
+    }
+    $poncon->success('更新成功');
+} else {
+    $sql = "INSERT INTO `$table` (`course_name`, `course_type`, `start_time`, `course_place`, `limit_num`, `msg`, `image`, `course_id`, `username`)
 VALUES ('$courseName', '$courseType', '$startTime', '$coursePlace', $limitNum, '$msg', '$image', '$course_id', '$username')";
-$result = mysqli_query($conn, $sql);
-if (!$result) {
-    $this->error(903, '数据库错误');
+    $result = mysqli_query($conn, $sql);
+    if (!$result) {
+        $this->error(903, '数据库错误');
+    }
+    $poncon->success('添加成功');
 }
-$poncon->success('添加成功');
