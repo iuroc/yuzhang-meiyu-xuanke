@@ -35,6 +35,7 @@ $(document).ready(function () {
                 document.title = '编辑课程 - ' + Poncon.title
                 Poncon.edit_course(hash[3])
                 $('.page-add .add_sdfsdf').html('编辑课程')
+                $('.page-add .delete_jshxa').show()
             } else {
                 document.title = '新增课程 - ' + Poncon.title
                 $('.page-add .add_sdfsdf').html('新增课程')
@@ -42,6 +43,7 @@ $(document).ready(function () {
                     Poncon.click_clean(true)
                     Poncon.data.add.edit = false
                 }
+                $('.page-add .delete_jshxa').hide()
             }
         } else {
             location.hash = ''
@@ -418,6 +420,11 @@ const Poncon = {
             }
             alert(data.msg)
         })
-    }
+    },
+    /**
+     * 点击删除课程
+     */
+    click_delete() {
 
+    }
 }
