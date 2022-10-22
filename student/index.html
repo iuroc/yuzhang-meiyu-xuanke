@@ -5,11 +5,125 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>选课系统 - 教师端</title>
+    <title>选课系统 - 学生端</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.0/css/bootstrap.min.css" />
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
 </head>
 
-<body>
-
+<body class="user-select-none">
+    <div class="slide-left h-100">
+        <h4 class="text-center pt-4 pb-3 mb-0 sticky-top _asasas">学生端</h4>
+        <div class="menu">
+            <div class="py-3 px-4 mx-3 oyp-action tab-home" onclick="location.hash='/home'">
+                <img src="img/1.svg">
+                <div class="ml-2">我要选课</div>
+            </div>
+            <div class="py-3 px-4 mx-3 oyp-action tab-myCourse" onclick="location.hash='/myCourse'">
+                <img src="img/4.svg">
+                <div class="ml-2">我的课程</div>
+            </div>
+            <div class="py-3 px-4 mx-3 oyp-action show-hasLogin" style="display: none;" onclick="Poncon.logout()">
+                <img src="img/3.svg">
+                <div class="ml-2">退出登录</div>
+            </div>
+            <div class="py-3 px-4 mx-3 oyp-action show-noLogin tab-login" style="display: none;"
+                onclick="location.hash='/login'">
+                <img src="img/4.svg">
+                <div class="ml-2">学生登录</div>
+            </div>
+        </div>
+        <!-- <div class="footer">
+            <a href="https://apee.top" target="_blank">鹏优创工作室</a>
+        </div> -->
+    </div>
+    <div class="box-right h-100">
+        <!-- 主页 我要选课 -->
+        <div class="page-home page-oyp">
+            <div class="tabs-row shadow-sm p-3 text-nowrap mb-4"></div>
+            <div class="container">
+                <div class="courseList row"></div>
+            </div>
+        </div>
+        <!-- 我的课程 -->
+        <div class="page-myCourse page-oyp">
+            <h4 class="pt-4 pb-3 _ss223 sticky-top px-3 px-sm-4 shadow-sm mb-0">我的课程</h4>
+            <div class="container py-4">
+                <div class="row list_9asia"></div>
+            </div>
+        </div>
+        <div class="page-info page-oyp">
+            
+        </div>
+        <!-- 教师登录 -->
+        <div class="page-login page-oyp">
+            <div class="form_hagdha mx-auto px-3 py-4">
+                <div class="page-sub-login page-sub" style="display: none;">
+                    <h4 class="text-center mb-3">教师登录</h4>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">手机号</span>
+                        </div>
+                        <input type="text" class="form-control input-username" placeholder="请输入手机号">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">密码</span>
+                        </div>
+                        <input type="password" autocomplete="new-password" class="form-control input-password"
+                            placeholder="请输入密码">
+                    </div>
+                    <div class="row">
+                        <div class="col pr-0">
+                            <button class="btn btn-primary btn-block" onclick="Poncon.click_login()">登录</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-info btn-block" onclick="location.hash='/login/register'">注册</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-sub-register page-sub" style="display: none;">
+                    <h4 class="text-center mb-3">教师注册</h4>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">手机号</span>
+                        </div>
+                        <input type="text" class="form-control input-username" placeholder="请输入手机号">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">姓名</span>
+                        </div>
+                        <input type="text" class="form-control input-name" placeholder="请输入教师姓名">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">密码</span>
+                        </div>
+                        <input type="password" autocomplete="new-password" class="form-control input-password"
+                            placeholder="请输入密码">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">重复</span>
+                        </div>
+                        <input type="password" autocomplete="new-password" class="form-control input-password-repeat"
+                            placeholder="请输入密码">
+                    </div>
+                    <div class="row">
+                        <div class="col pr-0">
+                            <button class="btn btn-info btn-block" onclick="Poncon.click_register()">注册</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-secondary btn-block" onclick="location.hash='/login'">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

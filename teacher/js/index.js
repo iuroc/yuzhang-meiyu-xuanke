@@ -358,12 +358,12 @@ const Poncon = {
                                         <h5 class="card-title">${item.course_name}</h5>
                                         <div class="row small mb-2">
                                             <div class="col pr-0">主讲：${item.teacher_name}</div>
-                                            <div class="col">报名：${item.has_num} / ${item.limit_num == 0 ? '不限' : item.limit_num}</div >
-                                        </div >
-    <div class="time small">开课时间：${Poncon.parse_date(item.start_time)}</div>
-                                    </div >
-                                </div >
-                            </div > `
+                                            <div class="col">报名：${item.has_num} / ${item.limit_num == 0 ? '不限' : item.limit_num}</div>
+                                        </div>
+                                        <div class="time small">开课时间：${Poncon.parse_date(item.start_time)}</div>
+                                    </div>
+                                </div>
+                            </div>`
                 })
                 Page.find('.list_9asia').html(html)
                 Poncon.load.home = true
