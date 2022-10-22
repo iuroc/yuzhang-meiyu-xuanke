@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.0/css/bootstrap.min.css" />
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.staticfile.org/blueimp-md5/2.19.0/js/md5.min.js"></script>
     <link rel="stylesheet" href="css/index.css">
     <script src="js/index.js"></script>
 </head>
@@ -17,11 +18,11 @@
     <div class="slide-left h-100">
         <h4 class="text-center pt-4 pb-3 mb-0 sticky-top _asasas">学生端</h4>
         <div class="menu">
-            <div class="py-3 px-4 mx-3 oyp-action tab-home" onclick="location.hash='/home'">
+            <div class="py-3 px-4 mx-3 oyp-action tab-home tab-info" onclick="location.hash='/home'">
                 <img src="img/1.svg">
                 <div class="ml-2">我要选课</div>
             </div>
-            <div class="py-3 px-4 mx-3 oyp-action tab-myCourse" onclick="location.hash='/myCourse'">
+            <div class="py-3 px-4 mx-3 oyp-action tab-myCourse show-hasLogin" style="display: none;" onclick="location.hash='/myCourse'">
                 <img src="img/4.svg">
                 <div class="ml-2">我的课程</div>
             </div>
@@ -51,17 +52,56 @@
         <div class="page-myCourse page-oyp">
             <h4 class="pt-4 pb-3 _ss223 sticky-top px-3 px-sm-4 shadow-sm mb-0">我的课程</h4>
             <div class="container py-4">
-                <div class="row list_9asia"></div>
+                <div class="row courseList"></div>
             </div>
         </div>
         <div class="page-info page-oyp">
-            
+            <div class="container py-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="rounded mb-4 embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="https://img.apee.top/i/787979344023240704">
+                        </div>
+                        <h4 class="mb-3">Java程序设计</h4>
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-header">
+                                课程信息
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2"><b>开课时间：</b>2022-11-15 15:09:00</div>
+                                <div class="mb-2"><b>讲师：</b>欧阳鹏</div>
+                                <div class="mb-2"><b>上课地点：</b>主教楼</div>
+                                <div class=""><b>报名情况：</b>欧阳鹏</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-header">
+                                课程简介
+                            </div>
+                            <div class="card-body">
+                                这是一门很好的课程
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col pr-2">
+                                <button class="btn btn-primary btn-block">立即报名</button>
+                            </div>
+                            <div class="col pl-2">
+                                <button class="btn btn-danger btn-block">联系老师</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- 教师登录 -->
+        <!-- 学生登录 -->
         <div class="page-login page-oyp">
             <div class="form_hagdha mx-auto px-3 py-4">
                 <div class="page-sub-login page-sub" style="display: none;">
-                    <h4 class="text-center mb-3">教师登录</h4>
+                    <h4 class="text-center mb-3">学生登录</h4>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">手机号</span>
@@ -85,7 +125,7 @@
                     </div>
                 </div>
                 <div class="page-sub-register page-sub" style="display: none;">
-                    <h4 class="text-center mb-3">教师注册</h4>
+                    <h4 class="text-center mb-3">学生注册</h4>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">手机号</span>
@@ -96,7 +136,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">姓名</span>
                         </div>
-                        <input type="text" class="form-control input-name" placeholder="请输入教师姓名">
+                        <input type="text" class="form-control input-name" placeholder="请输入学生姓名">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

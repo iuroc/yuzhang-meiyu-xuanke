@@ -182,9 +182,20 @@ class Poncon
             `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 记录创建时间
             `msg` TEXT, -- 课程介绍
             `image` VARCHAR(200), -- 课程封面
-            `username` VARCHAR(50), -- 教师用户名
+            `username` VARCHAR(50), -- 学生用户名
             `has_num` INT(11) DEFAULT 0, -- 已经报名的数量
             PRIMARY KEY (`id`) -- 主键
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            $this->error(903, '数据库错误');
+        }
+        // 新增报名表
+        $table = $config['table']['baoming'];
+        $sql = "CREATE TABLE IF NOT EXISTS `$table` (
+            `username` VARCHAR(50) NOT NULL, -- 学生用户名
+            `course_id` VARCHAR(11) NOT NULL, -- 课程ID
+            `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 记录创建时间
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         $result = mysqli_query($conn, $sql);
         if (!$result) {

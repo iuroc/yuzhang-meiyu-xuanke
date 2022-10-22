@@ -1,8 +1,6 @@
 history.scrollRestoration = 'manual'
 $(document).ready(function () {
-    // if (!Poncon.login(true)) {
-    //     location.hash = '/login'
-    // }
+    Poncon.login(true)
     router(location.hash)
     function router(hash) {
         hash = hash.split('/')
@@ -29,6 +27,15 @@ $(document).ready(function () {
             if (!Poncon.load.info) {
                 Poncon.load_course_info(courseId)
             }
+        } else if (target == 'login') {
+            document.title = (hash[2] == 'register' ? '学生注册' : '学生登录') + ' - ' + Poncon.title
+            $('.page-sub').css('display', 'none')
+            $('.page-sub-' + (hash[2] == 'register' ? 'register' : 'login') + '').css('display', 'block')
+        } else if (target == 'myCourse') {
+            document.title = '我的课程'
+            if (!Poncon.load.myCourse) {
+                Poncon.load_my_course_list()
+            }
         } else {
             location.hash = ''
         }
@@ -45,7 +52,7 @@ $(document).ready(function () {
 
 const Poncon = {
     title: '学生端',
-    storageKey: 'yzetmy_teacher', // 本地存储键名
+    storageKey: 'yzetmy_student', // 本地存储键名
     data: {
         add: {}
     },
@@ -234,26 +241,30 @@ const Poncon = {
             typeId: typeId
         }, function (data) {
             var list = Array.isArray(data.data) ? data.data : []
-            var html = ''
-            list.forEach(item => {
-                html += `<div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="card _uausua mb-3" onclick="location.hash='/info/${item.course_id}'">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <img src="${item.image}" class="card-img-top embed-responsive-item">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">${item.course_name}</h5>
-                                    <div class="row small mb-2">
-                                        <div class="col pr-0">主讲：${item.teacher_name}</div>
-                                        <div class="col">报名：${item.has_num} / ${item.limit_num == 0 ? '不限' : item.limit_num}</div>
-                                    </div>
-                                    <div class="time small">开课时间：${Poncon.parse_date(item.start_time)}</div>
-                                </div>
-                            </div>
-                        </div>`
-            })
+            var html = Poncon.make_list_html(list)
             $('.page-home .courseList').html(html)
         })
+    },
+    make_list_html(list) {
+        var html = ''
+        list.forEach(item => {
+            html += `<div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card _uausua mb-3" onclick="location.hash='/info/${item.course_id}'">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img src="${item.image}" class="card-img-top embed-responsive-item">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${item.course_name}</h5>
+                            <div class="row small mb-2">
+                                <div class="col pr-0">主讲：${item.teacher_name}</div>
+                                <div class="col">报名：${item.has_num} / ${item.limit_num == 0 ? '不限' : item.limit_num}</div>
+                            </div>
+                            <div class="time small">开课时间：${Poncon.parse_date(item.start_time)}</div>
+                        </div>
+                    </div>
+                </div>`
+        })
+        return html
     },
     /**
      * 转换时间为剩余时间
@@ -285,6 +296,19 @@ const Poncon = {
             course_id: course_id
         }, function (data) {
 
+        })
+    },
+    /**
+     * 获取我的课程列表
+     */
+    load_my_course_list() {
+        $.post('api/get_user_course_list.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password')
+        }, function (data) {
+            var list = Array.isArray(data.data) ? data.data : ''
+            var html = Poncon.make_list_html(list)
+            $('.page-myCourse .courseList').html(html)
         })
     }
 }

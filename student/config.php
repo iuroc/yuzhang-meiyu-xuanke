@@ -15,6 +15,7 @@ $config = [
     'table' => [
         'user' => 'yzetmy_student_user', // 用户表
         'course' => 'yzetmy_teacher_course', // 课程信息表
-        'user_teacher' => 'yzetmy_teacher_user' // 课程信息表
+        'user_teacher' => 'yzetmy_teacher_user', // 课程信息表
+        'baoming' => 'yzetmy_student_baoming' // 报名表
     ]
 ];
