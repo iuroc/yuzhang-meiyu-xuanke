@@ -19,7 +19,7 @@ body {
     background-color: inherit;
 }
 
-.oyp-action {
+.slide-left .oyp-action {
     transition: all .2s;
     display: flex;
     align-items: center;
@@ -78,7 +78,9 @@ body {
 
     .box-right {
         width: 100%;
+        padding-bottom: 50px;
     }
+
 }
 
 .footer {
@@ -121,4 +123,23 @@ body {
 
 .courseTypeListItem:not(:last-child) {
     margin-right: 10px;
+}
+
+.footer-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    background-color: white;
+    z-index: 10;
+    display: flex;
+}
+
+.footer-nav .oyp-action {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

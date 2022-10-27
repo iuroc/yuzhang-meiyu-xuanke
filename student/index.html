@@ -164,6 +164,24 @@
             </div>
         </div>
     </div>
+    <div class="footer-nav border-top d-sm-none">
+        <div class="oyp-action tab-home" onclick="location.hash='/home'">
+            <img src="img/1.svg">
+            <div>选课</div>
+        </div>
+        <div class="oyp-action tab-myCourse show-hasLogin" style="display: none;" onclick="location.hash='/myCourse'">
+            <img src="img/4.svg">
+            <div>我的</div>
+        </div>
+        <div class="oyp-action show-hasLogin" style="display: none;" onclick="Poncon.logout()">
+            <img src="img/3.svg">
+            <div>登出</div>
+        </div>
+        <div class="oyp-action show-noLogin tab-login" style="display: none;" onclick="location.hash='/login'">
+            <img src="img/4.svg">
+            <div>登录</div>
+        </div>
+    </div>
 </body>
 
 </html>
