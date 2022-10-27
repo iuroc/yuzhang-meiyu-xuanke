@@ -324,6 +324,9 @@ const Poncon = {
      * 点击报名
      */
     click_baoming() {
+        if (!confirm('确定操作吗？')) {
+            return
+        }
         var This = this
         var courseId = location.hash.split('/')[2]
         $.post('api/toggle_course.php', {
