@@ -91,7 +91,9 @@ const Poncon = {
                     $('.show-hasLogin').show()
                     $('.show-noLogin').hide()
                     if (location.hash.split('/')[1] == 'login' && !ifLoad) {
-                        location.hash = ''
+                        setTimeout(() => {
+                            location.hash = ''
+                        }, 1000);
                     }
                     return true
                 }
@@ -325,6 +327,10 @@ const Poncon = {
      */
     click_baoming() {
         if (!confirm('确定操作吗？')) {
+            return
+        }
+        if (!this.loginStatus) {
+            alert('请先登录')
             return
         }
         var This = this
