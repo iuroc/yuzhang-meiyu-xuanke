@@ -329,6 +329,7 @@ const Poncon = {
         if (boo || confirm('确定要清空重填吗？')) {
             var Page = $('.page-add')
             Page.find('input').val('')
+            Page.find('textarea').val('')
             delete this.data.add.image_url
             $('._jhsgdfhsghf').removeAttr('src').hide()
         }

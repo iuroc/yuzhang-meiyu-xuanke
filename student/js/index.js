@@ -292,9 +292,50 @@ const Poncon = {
      * @param {string} course_id 课程ID
      */
     load_course_info(course_id) {
+        var This = this
         $.post('api/get_course_info.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
             course_id: course_id
         }, function (data) {
+            if (data.code == 200) {
+                This.load_course_info_html(data.data)
+                return
+            }
+            alert(data.msg)
+        })
+    },
+    load_course_info_html(data) {
+        // 判断是否报名
+        if (data.baoming) {
+            $('.page-info .btn_baoming').html('取消报名')
+        } else {
+            $('.page-info .btn_baoming').html('立即报名')
+        }
+        $('.page-info .course_title').html(data.course_name)
+        $('.page-info .start_time').html(this.parse_date(data.start_time))
+        $('.page-info .teacher_name').html(data.teacher_name)
+        $('.page-info .course_place').html(data.course_place)
+        $('.page-info .course_msg').html(data.msg)
+        $('.page-info .course_img').attr('src', data.image)
+        $('.page-info .baoming_status').html(`${data.has_num} / ${data.limit_num == 0 ? '不限' : data.limit_num}`)
+    },
+    /**
+     * 点击报名
+     */
+    click_baoming() {
+        var This = this
+        var courseId = location.hash.split('/')[2]
+        $.post('api/toggle_course.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
+            course_id: courseId
+        }, function (data) {
+            alert(data.msg)
+            if (data.code == 200) {
+                This.load_course_info_html(data.data)
+                return
+            }
 
         })
     },

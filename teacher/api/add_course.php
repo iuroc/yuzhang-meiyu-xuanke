@@ -33,7 +33,7 @@ $coursePlace = $poncon->POST('coursePlace', '', true);
 $limitNum = $poncon->POST('limitNum', 0, true);
 $msg = $poncon->POST('msg', '', true);
 $image = $poncon->POST('image', 0, true);
-$edit = $poncon->POST('edit', 0, true);
+$edit = $poncon->POST('edit', '', true);
 $course_id = $poncon->createId(11);
 if (!$courseName || !$courseType || !$startTime || !$coursePlace || !$image) {
     $poncon->error(900, '参数缺失');

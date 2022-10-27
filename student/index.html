@@ -18,11 +18,12 @@
     <div class="slide-left h-100">
         <h4 class="text-center pt-4 pb-3 mb-0 sticky-top _asasas">学生端</h4>
         <div class="menu">
-            <div class="py-3 px-4 mx-3 oyp-action tab-home tab-info" onclick="location.hash='/home'">
+            <div class="py-3 px-4 mx-3 oyp-action tab-home" onclick="location.hash='/home'">
                 <img src="img/1.svg">
                 <div class="ml-2">我要选课</div>
             </div>
-            <div class="py-3 px-4 mx-3 oyp-action tab-myCourse show-hasLogin" style="display: none;" onclick="location.hash='/myCourse'">
+            <div class="py-3 px-4 mx-3 oyp-action tab-myCourse show-hasLogin" style="display: none;"
+                onclick="location.hash='/myCourse'">
                 <img src="img/4.svg">
                 <div class="ml-2">我的课程</div>
             </div>
@@ -60,18 +61,18 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="rounded mb-4 embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="https://img.apee.top/i/787979344023240704">
+                            <img class="embed-responsive-item course_img">
                         </div>
-                        <h4 class="mb-3">Java程序设计</h4>
+                        <h4 class="mb-3 course_title"></h4>
                         <div class="card mb-3 shadow-sm">
                             <div class="card-header">
                                 课程信息
                             </div>
                             <div class="card-body">
-                                <div class="mb-2"><b>开课时间：</b>2022-11-15 15:09:00</div>
-                                <div class="mb-2"><b>讲师：</b>欧阳鹏</div>
-                                <div class="mb-2"><b>上课地点：</b>主教楼</div>
-                                <div class=""><b>报名情况：</b>欧阳鹏</div>
+                                <div class="mb-2"><b>开课时间：</b><span class="start_time"></span></div>
+                                <div class="mb-2"><b>讲师：</b><span class="teacher_name"></span></div>
+                                <div class="mb-2"><b>上课地点：</b><span class="course_place"></span></div>
+                                <div class=""><b>报名情况：</b><span class="baoming_status"></span></div>
                             </div>
                         </div>
 
@@ -81,13 +82,12 @@
                             <div class="card-header">
                                 课程简介
                             </div>
-                            <div class="card-body">
-                                这是一门很好的课程
-                            </div>
+                            <div class="card-body course_msg"></div>
                         </div>
                         <div class="row">
                             <div class="col pr-2">
-                                <button class="btn btn-primary btn-block">立即报名</button>
+                                <button class="btn btn-primary btn-block btn_baoming"
+                                    onclick="Poncon.click_baoming()">立即报名</button>
                             </div>
                             <div class="col pl-2">
                                 <button class="btn btn-danger btn-block">联系老师</button>
