@@ -50,6 +50,10 @@ $(document).ready(function () {
                 $('.page-add .delete_jshxa').hide();
             }
         }
+        else if (target == 'view') {
+            var course_id = hashs[2];
+            Poncon.view_course(course_id);
+        }
         else {
             location.hash = '';
         }
@@ -77,9 +81,10 @@ var Poncon = {
         }
     },
     load: {
-        home: {},
-        load: {},
-        add: {}
+        home: false,
+        load: false,
+        add: false,
+        view: false
     },
     loginStatus: false,
     tempTitle: {},
@@ -96,7 +101,7 @@ var Poncon = {
             this.notLogin();
             return false;
         }
-        var success;
+        var success = false;
         var This = this;
         $.ajax({
             method: 'post',
@@ -143,7 +148,7 @@ var Poncon = {
             return data[key];
         }
         catch (_a) {
-            return null;
+            return '';
         }
     },
     /**
@@ -360,7 +365,7 @@ var Poncon = {
             if (data.code == 200) {
                 var html = '';
                 data.data.forEach(function (item) {
-                    html += "<div class=\"col-xl-3 col-lg-4 col-md-6\">\n                                <div class=\"card _uausua mb-3\">\n                                    <div class=\"embed-responsive embed-responsive-16by9\">\n                                        <img src=\"".concat(item.image, "\" class=\"card-img-top embed-responsive-item\">\n                                        <div class=\"_asasahbg mb-3\">\n                                            <button class=\"btn mr-2 shadow btn-info btn-sm\" onclick=\"Poncon.view_course('").concat(item.course_id, "')\">\u67E5\u770B\u6570\u636E</button>\n                                            <button class=\"btn mr-3 shadow btn-primary btn-sm\" onclick=\"location.hash='/add/edit/").concat(item.course_id, "'\">\u7F16\u8F91\u8BFE\u7A0B</button>\n                                        </div>\n                                    </div>\n                                    <div class=\"card-body\">\n                                        <h5 class=\"card-title\">").concat(item.course_name, "</h5>\n                                        <div class=\"row small mb-2\">\n                                            <div class=\"col pr-0\">\u4E3B\u8BB2\uFF1A").concat(item.teacher_name, "</div>\n                                            <div class=\"col\">\u62A5\u540D\uFF1A").concat(item.has_num, " / ").concat(item.limit_num == 0 ? '不限' : item.limit_num, "</div>\n                                        </div>\n                                        <div class=\"time small\">\u5F00\u8BFE\u65F6\u95F4\uFF1A").concat(Poncon.parse_date(item.start_time), "</div>\n                                    </div>\n                                </div>\n                            </div>");
+                    html += "<div class=\"col-xl-3 col-lg-4 col-md-6\">\n                                <div class=\"card _uausua mb-3\">\n                                    <div class=\"embed-responsive embed-responsive-16by9\">\n                                        <img src=\"".concat(item.image, "\" class=\"card-img-top embed-responsive-item\">\n                                        <div class=\"_asasahbg mb-3\">\n                                            <button class=\"btn mr-2 shadow btn-info btn-sm\" onclick=\"location.hash='/view/").concat(item.course_id, "'\">\u67E5\u770B\u6570\u636E</button>\n                                            <button class=\"btn mr-3 shadow btn-primary btn-sm\" onclick=\"location.hash='/add/edit/").concat(item.course_id, "'\">\u7F16\u8F91\u8BFE\u7A0B</button>\n                                        </div>\n                                    </div>\n                                    <div class=\"card-body\">\n                                        <h5 class=\"card-title\">").concat(item.course_name, "</h5>\n                                        <div class=\"row small mb-2\">\n                                            <div class=\"col pr-0\">\u4E3B\u8BB2\uFF1A").concat(item.teacher_name, "</div>\n                                            <div class=\"col\">\u62A5\u540D\uFF1A").concat(item.has_num, " / ").concat(item.limit_num == 0 ? '不限' : item.limit_num, "</div>\n                                        </div>\n                                        <div class=\"time small\">\u5F00\u8BFE\u65F6\u95F4\uFF1A").concat(Poncon.parse_date(item.start_time), "</div>\n                                    </div>\n                                </div>\n                            </div>");
                 });
                 Page.find('.list_9asia').html(html);
                 Poncon.load.home = true;
@@ -424,5 +429,21 @@ var Poncon = {
      * 点击删除课程
      */
     click_delete: function () {
+    },
+    /**
+     * 查看课程数据
+     */
+    view_course: function (course_id) {
+        $.post('api/get_course_info.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
+            course_id: course_id,
+            baoming_list: 1
+        }, function (data) {
+            if (data.code == 200) {
+                return;
+            }
+            alert(data.msg);
+        });
     }
 };

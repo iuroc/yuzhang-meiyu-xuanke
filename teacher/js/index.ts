@@ -1,6 +1,5 @@
 
 history.scrollRestoration = 'manual'
-
 declare function md5(str: string): string
 $(document).ready(function () {
     if (!Poncon.login(true)) {
@@ -9,7 +8,7 @@ $(document).ready(function () {
     router(location.hash)
     function router(hash: string) {
         var hashs: string[] = hash.split('/')
-        var target = hashs[1]
+        var target: string = hashs[1]
         // target非法状态
         if (!target || !target.match(/^\w+$/)) {
             target = 'home'
@@ -18,6 +17,7 @@ $(document).ready(function () {
         var Page = $('.page-' + target)
         Page.css('display', 'block')
         // 控制侧边选项卡阴影
+
         $('.oyp-action, .oyp-action-sm').removeClass('active')
         $('.tab-' + target).addClass('active')
         if (target == 'home') {
@@ -48,6 +48,9 @@ $(document).ready(function () {
                 }
                 $('.page-add .delete_jshxa').hide()
             }
+        } else if (target == 'view') {
+            let course_id = hashs[2]
+            Poncon.view_course(course_id)
         } else {
             location.hash = ''
         }
@@ -76,9 +79,10 @@ const Poncon = {
         }
     },
     load: {
-        home: {},
-        load: {},
-        add: {}
+        home: false,
+        load: false,
+        add: false,
+        view: false
     }, // 页面初始化加载完成情况，pageName: true/false
     loginStatus: false,
     tempTitle: {}, // 用于必要时记录页面标题
@@ -88,14 +92,14 @@ const Poncon = {
      * @param {boolean} ifLoad 是否是初始化验证，如果是，则不弹窗提示
      * @returns {boolean} 是否验证成功
      */
-    login(ifLoad?: boolean) {
+    login(ifLoad?: boolean): boolean {
         var username = this.getStorage('username')
         var password = this.getStorage('password')
         if (!username || !password) {
             this.notLogin()
             return false
         }
-        var success
+        var success = false
         var This = this
         $.ajax({
             method: 'post',
@@ -135,13 +139,13 @@ const Poncon = {
      * @param {string} key 键名
      * @returns {any} 返回值
      */
-    getStorage(key: string) {
+    getStorage(key: string): string {
         var data = localStorage[this.storageKey]
         try {
             data = JSON.parse(data)
             return data[key]
         } catch {
-            return null
+            return ''
         }
     },
     /**
@@ -149,7 +153,7 @@ const Poncon = {
      * @param {string} key 键名
      * @param {any} value 值
      */
-    setStorage(key: string, value: any) {
+    setStorage(key: string, value: any): void {
         var data = localStorage[this.storageKey]
         data = data ? data : '{}'
         try {
@@ -163,7 +167,7 @@ const Poncon = {
     /**
      * 未登录状态
      */
-    notLogin() {
+    notLogin(): void {
         $('.show-hasLogin').hide()
         $('.show-noLogin').show()
         this.loginStatus = false
@@ -364,7 +368,7 @@ const Poncon = {
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <img src="${item.image}" class="card-img-top embed-responsive-item">
                                         <div class="_asasahbg mb-3">
-                                            <button class="btn mr-2 shadow btn-info btn-sm" onclick="Poncon.view_course('${item.course_id}')">查看数据</button>
+                                            <button class="btn mr-2 shadow btn-info btn-sm" onclick="location.hash='/view/${item.course_id}'">查看数据</button>
                                             <button class="btn mr-3 shadow btn-primary btn-sm" onclick="location.hash='/add/edit/${item.course_id}'">编辑课程</button>
                                         </div>
                                     </div>
@@ -440,5 +444,22 @@ const Poncon = {
      */
     click_delete() {
 
+    },
+    /**
+     * 查看课程数据
+     */
+    view_course(course_id: string) {
+        $.post('api/get_course_info.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
+            course_id: course_id,
+            baoming_list: 1
+        }, function (data) {
+            if (data.code == 200) {
+                
+                return
+            }
+            alert(data.msg)
+        })
     }
 }
