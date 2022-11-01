@@ -39,7 +39,7 @@ if ($baoming_list == '1') {
     $data = [
         'info' => $data
     ];
-    $data['baoming'] = mysqli_fetch_assoc($result);
+    $data['baoming'] = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
 $poncon->success('获取成功', $data);

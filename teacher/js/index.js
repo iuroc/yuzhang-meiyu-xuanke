@@ -434,6 +434,7 @@ var Poncon = {
      * 查看课程数据
      */
     view_course: function (course_id) {
+        var Page = $('.page-view');
         $.post('api/get_course_info.php', {
             username: this.getStorage('username'),
             password: this.getStorage('password'),
@@ -441,6 +442,12 @@ var Poncon = {
             baoming_list: 1
         }, function (data) {
             if (data.code == 200) {
+                var baoming = data.data.baoming;
+                var html_1 = '';
+                baoming.forEach(function (item, index) {
+                    html_1 += "<tr>\n                                <th scope=\"row\">1</th>\n                                <td>".concat(item.name, "</td>\n                                <td>").concat(item.username, "</td>\n                            </tr>");
+                });
+                Page.find('.baoming_list').html(html_1);
                 return;
             }
             alert(data.msg);

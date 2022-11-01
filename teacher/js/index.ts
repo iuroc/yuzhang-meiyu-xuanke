@@ -449,6 +449,7 @@ const Poncon = {
      * 查看课程数据
      */
     view_course(course_id: string) {
+        let Page = $('.page-view')
         $.post('api/get_course_info.php', {
             username: this.getStorage('username'),
             password: this.getStorage('password'),
@@ -456,7 +457,16 @@ const Poncon = {
             baoming_list: 1
         }, function (data) {
             if (data.code == 200) {
-                
+                let baoming: { [key: string]: any }[] = data.data.baoming
+                let html = ''
+                baoming.forEach(function (item, index: number) {
+                    html += `<tr>
+                                <th scope="row">1</th>
+                                <td>${item.name}</td>
+                                <td>${item.username}</td>
+                            </tr>`
+                })
+                Page.find('.baoming_list').html(html)
                 return
             }
             alert(data.msg)
