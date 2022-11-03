@@ -317,10 +317,14 @@ const Poncon = {
         $('.page-info .course_title').html(data.course_name)
         $('.page-info .start_time').html(this.parse_date(data.start_time))
         $('.page-info .teacher_name').html(data.teacher_name)
+        $('.page-info .teacher_id').html(data.teacher_id)
         $('.page-info .course_place').html(data.course_place)
         $('.page-info .course_msg').html(data.msg)
         $('.page-info .course_img').attr('src', data.image)
         $('.page-info .baoming_status').html(`${data.has_num} / ${data.limit_num == 0 ? '不限' : data.limit_num}`)
+        $('.page-info .btn-calPhone').off().on('click', function () {
+            location.href = 'tel:' + data.teacher_id
+        })
     },
     /**
      * 点击报名

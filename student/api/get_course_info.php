@@ -17,7 +17,7 @@ $password = $poncon->POST('password', '', true);
 $config = $poncon->getConfig();
 $table = $config['table']['course'];
 $table_user = $config['table']['user_teacher'];
-$sql = "SELECT A.*, B.`name` AS 'teacher_name' FROM `$table` AS A, `$table_user` AS B WHERE A.`username` = B.`username` AND A.`course_id` = '$course_id' ORDER BY A.`start_time`;";
+$sql = "SELECT A.*, B.`name` AS 'teacher_name', B.`username` AS `teacher_id` FROM `$table` AS A, `$table_user` AS B WHERE A.`username` = B.`username` AND A.`course_id` = '$course_id' ORDER BY A.`start_time`;";
 $result = mysqli_query($conn, $sql);
 if (!$result) {
     $poncon->error(903, '数据库出错');
