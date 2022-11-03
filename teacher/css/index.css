@@ -19,11 +19,15 @@ body {
     background-color: inherit;
 }
 
+
+.slide-left .oyp-action {
+    border-radius: .5rem;
+}
+
 .oyp-action {
     transition: all .2s;
     display: flex;
     align-items: center;
-    border-radius: .5rem;
     cursor: pointer;
 }
 
@@ -78,6 +82,7 @@ body {
 
     .box-right {
         width: 100%;
+        padding-bottom: 50px;
     }
 }
 
@@ -105,6 +110,7 @@ body {
 .embed-responsive {
     position: relative;
 }
+
 ._asasahbg {
     position: absolute;
     right: 0;
@@ -114,4 +120,23 @@ body {
 
 ._uausua:hover ._asasahbg {
     display: block;
+}
+
+
+.footer-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    background-color: white;
+    z-index: 10;
+    display: flex;
+}
+
+.footer-nav .oyp-action {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
