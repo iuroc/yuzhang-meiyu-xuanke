@@ -387,7 +387,6 @@ const Poncon = {
                 Poncon.load.home = true
                 return
             }
-            alert(data.msg)
         })
     },
     /**
