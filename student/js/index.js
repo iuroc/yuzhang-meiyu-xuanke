@@ -323,7 +323,7 @@ const Poncon = {
         $('.page-info .course_img').attr('src', data.image)
         $('.page-info .baoming_status').html(`${data.has_num} / ${data.limit_num == 0 ? '不限' : data.limit_num}`)
         $('.page-info .btn-calPhone').off().on('click', function () {
-            location.href = 'tel:' + data.teacher_id
+            location.href = 'tel:' + data.teacher_id + '#mp.weixin.qq.com'
         })
     },
     /**
