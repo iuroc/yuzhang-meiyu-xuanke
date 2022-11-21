@@ -428,6 +428,9 @@ var Poncon = {
      * 点击删除课程
      */
     click_delete: function () {
+        if (!confirm('确定要删除课程吗？')) {
+            return;
+        }
         var course_id = Poncon.data.add.edit_course_id;
         $.post('api/delete_course.php', {
             username: this.getStorage('username'),
@@ -435,6 +438,7 @@ var Poncon = {
             course_id: course_id
         }, function (data) {
             if (data.code == 200) {
+                Poncon.load.home = false;
                 location.href = '#';
             }
             alert(data.msg);
