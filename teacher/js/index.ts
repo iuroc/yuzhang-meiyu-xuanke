@@ -442,7 +442,17 @@ const Poncon = {
      * 点击删除课程
      */
     click_delete() {
-
+        let course_id = Poncon.data.add.edit_course_id
+        $.post('api/delete_course.php', {
+            username: this.getStorage('username'),
+            password: this.getStorage('password'),
+            course_id: course_id
+        }, function (data) {
+            if (data.code == 200) {
+                location.href = '#'
+            }
+            alert(data.msg)
+        })
     },
     /**
      * 查看课程数据

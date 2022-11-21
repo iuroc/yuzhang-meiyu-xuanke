@@ -9,7 +9,7 @@ $config = [
     'mysql' => [
         'host' => 'localhost',
         'user' => 'root',
-        'pass' => '123456', // 数据库密码
+        'pass' => '12345678', // 数据库密码
         'db' => 'ponconsoft' // 数据库名称
     ],
     'table' => [
