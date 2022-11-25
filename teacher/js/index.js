@@ -459,7 +459,7 @@ var Poncon = {
                 var baoming = data.data.baoming;
                 var html_1 = '';
                 baoming.forEach(function (item, index) {
-                    html_1 += "<tr>\n                                <th scope=\"row\">1</th>\n                                <td>".concat(item.name, "</td>\n                                <td>").concat(item.username, "</td>\n                            </tr>");
+                    html_1 += "<tr>\n                                <th scope=\"row\">".concat(index + 1, "</th>\n                                <td>").concat(item.name, "</td>\n                                <td>").concat(item.username, "</td>\n                            </tr>");
                 });
                 Page.find('.baoming_list').html(html_1);
                 return;

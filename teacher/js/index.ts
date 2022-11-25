@@ -474,7 +474,7 @@ const Poncon = {
                 let html = ''
                 baoming.forEach(function (item, index: number) {
                     html += `<tr>
-                                <th scope="row">1</th>
+                                <th scope="row">${index + 1}</th>
                                 <td>${item.name}</td>
                                 <td>${item.username}</td>
                             </tr>`
