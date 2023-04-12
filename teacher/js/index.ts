@@ -262,8 +262,8 @@ const Poncon = {
         var formData = new FormData()
         formData.append('file', fileData)
         formData.append('name', fileData.name)
-        formData.append('puid', '19673665')
-        formData.append('_token', '7347af7b58c7297d1398035f530c4155')
+        formData.append('puid', '198665283')
+        formData.append('_token', 'cbb00fbec3c999953726f34f67c1d0b2')
         $.ajax({
             method: 'post',
             url: '//pan-yz.chaoxing.com/upload/uploadfile',
@@ -276,7 +276,7 @@ const Poncon = {
                 alert('出错：' + e.statusText)
             },
             success: function (data) {
-                var image_url = 'https://img.apee.top/i/' + data.data.residstr
+                var image_url = 'https://p.ananas.chaoxing.com/star3/origin/' + data.data.objectId + '.jpg'
                 This.data.add.image_url = image_url
                 $('._jhsgdfhsghf').attr('src', image_url).show()
             }
